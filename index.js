@@ -57,8 +57,6 @@ con.query('SELECT * from cliente LIMIT 30', function(err, rows, fields) {
 //   database : process.env.MYSQLBASE
 // });
 
-
-
 // app.get("/cliente", function(request, response){
 // 	con.getConnection(function(error, tempCont) {
 // 		if(!!error) {
