@@ -44,6 +44,7 @@ con.query('SELECT * from cliente LIMIT 30', function(err, rows, fields) {
 	  	// var d = new Date();
 	  	console.log('The solution is: ', new Date());
 	  } else {
+		  response.status(500);
 	  	console.log('Error while performing Query.');
 	  }
   });
