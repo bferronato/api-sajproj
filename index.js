@@ -36,18 +36,18 @@ con.connect(function(err) {
 });
 
 app.get("/cliente", function(request, response){
-con.query('SELECT * from cliente LIMIT 30', function(err, rows, fields) {
+    con.query('SELECT * from cliente LIMIT 30', function(err, rows, fields) {
 	//con.end();
 	  if (!err) {
-	  	response.send("The solution is: ", rows);
-		  //response.status(status).send(body);
+	  	//response.send("The solution is: ", rows);
+		  response.status(200).send("The solution is: ", rows);
 	  	// var d = new Date();
 	  	console.log('The solution is: ', new Date());
 	  } else {
 		  response.status(500);
 	  	console.log('Error while performing Query.');
 	  }
-  });
+    });
 });
 
 
