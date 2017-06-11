@@ -1,92 +1,43 @@
-var cool = require('cool-ascii-faces');
-var express = require('express');
-var mysql = require('mysql');
-var app = express();
+// =======================
+// get the packages we need ============
+// =======================
+var express     = require('express');
+var app         = express();
+var bodyParser  = require('body-parser');
+var morgan      = require('morgan');
+var mongoose    = require('mongoose');
 
-app.set('port', (process.env.PORT || 5000));
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var config = require('./config'); // get our config file
+var User   = require('./app/models/user'); // get our mongoose model
 
-app.use(express.static(__dirname + '/public'));
+// =======================
+// configuration =========
+// =======================
+var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
+mongoose.connect(config.database); // connect to database
+app.set('superSecret', config.secret); // secret variable
 
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+// use body parser so we can get info from POST and/or URL parameters
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.get('/', function(request, response) {
-  response.render('pages/index')
+// use morgan to log requests to the console
+app.use(morgan('dev'));
+
+// =======================
+// routes ================
+// =======================
+// basic route
+app.get('/', function(req, res) {
+    res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
 
-app.get('/cool', function(request, response) {
-  response.send(cool());
-});
+// API ROUTES -------------------
+// we'll get to these in a second
 
-app.get('/nice', function(request, response) {
-  response.send("Nice 2x");
-});
-
-var con = mysql.createConnection({
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASS,
-  database : process.env.MYSQLBASE
-});
-
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
-
-app.get("/cliente", function(request, response){
-    con.query('SELECT * from cliente LIMIT 30', function(err, rows, fields) {
-	//con.end();
-	  if (!err) {
-	  	//response.send("The solution is: ", rows);
-		  response.status(200).json(rows); //.send({result:"The solution is: "});
-		  //res.json(rows);
-	  	// var d = new Date();
-	  	console.log('The solution is: ', new Date());
-	  } else {
-		  response.status(500);
-	  	console.log('Error while performing Query.');
-	  }
-    });
-});
-
-
-// var con = mysql.createPool({
-//   connectionLimit:50,
-//   host: process.env.MYSQLHOST,
-//   user: process.env.MYSQLUSER,
-//   password: process.env.MYSQLPASS,
-//   database : process.env.MYSQLBASE
-// });
-
-// app.get("/cliente", function(request, response){
-// 	con.getConnection(function(error, tempCont) {
-// 		if(!!error) {
-// 			tempCont.release();
-// 			console.log('Erro de conexao');
-// 		} else {
-// 			console.log('Conectado!');
-
-// 			tempCont.query('SELECT * from cliente LIMIT 30', function(err, rows, fields) {
-// 			});
-// 		}
-
-// 	});
-// con.query('SELECT * from cliente LIMIT 30', function(err, rows, fields) {
-// 	//con.end();
-// 	  if (!err) {
-// 	  	response.send("The solution is: ", rows);
-// 	  	// var d = new Date();
-// 	  	console.log('The solution is: ', new Date());
-// 	  } else {
-// 	  	console.log('Error while performing Query.');
-// 	  }
-//   });
-// });
-
-
-
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+// =======================
+// start the server ======
+// =======================
+app.listen(port);
+console.log('Magic happens at http://localhost:' + port);
