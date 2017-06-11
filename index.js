@@ -39,7 +39,8 @@ app.get("/cliente", function(request, response){
 con.query('SELECT * from cliente LIMIT 30', function(err, rows, fields) {
 	//con.end();
 	  if (!err) {
-	  	response.send("The solution is: ", rows);
+	  	//response.send("The solution is: ", rows);
+		  res.status(status).send(body)
 	  	// var d = new Date();
 	  	console.log('The solution is: ', new Date());
 	  } else {
