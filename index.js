@@ -64,7 +64,6 @@ app.get("/cliente", function(request, response){
 // 		if(!!error) {
 // 			tempCont.release();
 // 			console.log('Erro de conexao');
-
 // 		} else {
 // 			console.log('Conectado!');
 
