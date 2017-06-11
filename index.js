@@ -40,7 +40,8 @@ app.get("/cliente", function(request, response){
 	//con.end();
 	  if (!err) {
 	  	//response.send("The solution is: ", rows);
-		  response.status(200).send({result:"The solution is: "});
+		  response.status(200).json(rows); //.send({result:"The solution is: "});
+		  //res.json(rows);
 	  	// var d = new Date();
 	  	console.log('The solution is: ', new Date());
 	  } else {
