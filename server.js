@@ -4,7 +4,7 @@
 var express     = require('express');
 var app         = express();
 var bodyParser  = require('body-parser');
-/*
+
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
 
@@ -15,7 +15,6 @@ var User   = require('./app/models/user'); // get our mongoose model
 // =======================
 // configuration =========
 // =======================
-*/
 var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
 /*
 mongoose.connect(config.database); // connect to database
