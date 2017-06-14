@@ -17,7 +17,7 @@ var User   = require('./app/models/user'); // get our mongoose model
 // =======================
 var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
 
-mongoose.connect(config.database); // connect to database
+//mongoose.connect(config.database); // connect to database
 //app.set('superSecret', config.secret); // secret variable
 
 // use body parser so we can get info from POST and/or URL parameters/
