@@ -12,6 +12,8 @@
  * 
  * Não pode possuir espaços em branco
  * Login gerado deve possuir no maximo 20 caracteres
+ * 
+ * font: https://codereview.stackexchange.com/questions/7001/generating-all-combinations-of-an-array
  */
 const login = {
     geraLogin(nome) {
